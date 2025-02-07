@@ -1,17 +1,17 @@
 import { Schema, Document, ObjectId, Types } from 'mongoose';
 
 interface IResponse extends Document {
-  reactionId: ObjectId;
-  responseBody: string;
+  thoughtText: string;
+  createdAt: Date; //add default
   username: string;
-  createdAt: Date;
+  reactions: []; //add a nested document from reaction schema
 }
 
-const responseSchema = new Schema<IResponse>(
+const thoughtsSchema = new Schema<IResponse>(
   {
-    reactionId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
+    thoughtText: {
+      type: string,
+      default: () => new Types.ObjectId(), //must be between 1 and 280 characters
     },
     responseBody: {
       type: String,
@@ -35,4 +35,4 @@ const responseSchema = new Schema<IResponse>(
   }
 );
 
-export default responseSchema;
+export default thoughtsSchema;

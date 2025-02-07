@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import Response from './Response.js';
+import Response from './Thoughts.js';
 
 interface IVideo {
   published: boolean;
