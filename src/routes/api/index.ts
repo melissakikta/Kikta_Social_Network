@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import videoRoutes from './videoRoutes.js';
+import videoRoutes from './thoughtRoutes.js';
 import userRoutes from './userRoutes.js';
 
 router.use('/videos', videoRoutes);

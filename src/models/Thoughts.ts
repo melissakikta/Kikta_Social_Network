@@ -1,38 +1,49 @@
-import { Schema, Document, ObjectId, Types } from 'mongoose';
+import { Schema, Document, model, Types } from 'mongoose';
+import reactionSchema from './Reaction';
 
-interface IResponse extends Document {
+
+interface IThought extends Document {
   thoughtText: string;
-  createdAt: Date; //add default
+  createdAt: Date;
   username: string;
-  reactions: []; //add a nested document from reaction schema
+  reactions: Types.DocumentArray<typeof reactionSchema>; 
 }
 
-const thoughtsSchema = new Schema<IResponse>(
+const thoughtsSchema = new Schema<IThought>(
   {
     thoughtText: {
-      type: string,
-      default: () => new Types.ObjectId(), //must be between 1 and 280 characters
-    },
-    responseBody: {
       type: String,
       required: true,
+      minlength: 1,
       maxlength: 280,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (timestamp: Date) => timestamp,
     },
     username: {
       type: String,
       required: true,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
+    reactions: [reactionSchema], 
   },
   {
     toJSON: {
+      virtuals: true,
       getters: true,
     },
     id: false,
   }
 );
 
-export default thoughtsSchema;
+//virtual property to get the number of reactions
+thoughtsSchema.virtual("reactionCount").get(function () {
+  return this.reactions.length;
+});
+
+//initialize Thought Model
+const Thought = model<IThought>("Thought", thoughtsSchema);
+
+
+export default Thought;

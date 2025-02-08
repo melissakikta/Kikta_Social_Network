@@ -1,10 +1,10 @@
-import { Schema, Document, model, Thoughts } from 'mongoose';
+import { Schema, Document, model, Types } from 'mongoose';
 
 interface IUser extends Document {
   username: string;
   email: string;
-  thoughts: Thoughts[];
-  friends: UserId[]; // this isn't correct
+  thoughts: Types.ObjectID [];
+  friends: Types.ObjectID[]; // this isn't correct
  }
 
 // Schema to create User model
@@ -25,7 +25,7 @@ const userSchema = new Schema<IUser>(
     thoughts: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Thoughts',
+        ref: 'Thought',
       },
     ],
     friends: [
@@ -42,9 +42,13 @@ const userSchema = new Schema<IUser>(
     id: false,
   }
 );
-
+//virtual property to get the number of friends a user has
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length;
+});
 
 // Initialize our User model
-const User = model('user', userSchema);
+const User = model<IUser>('User', userSchema);
 
-export default User
+
+export default User;
