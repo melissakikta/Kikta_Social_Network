@@ -1,6 +1,7 @@
-import Thought from '../models/Thought.js';
+import models from '../models/index.js';
 import { Request, Response } from 'express';
-import User from '../models/User.js';
+
+const { User, Thought } = models; // Destructure User and Thought
 
 // Get all thoughts
   export const getThoughts = async(_req: Request, res: Response) => {
