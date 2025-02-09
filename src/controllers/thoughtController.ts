@@ -36,7 +36,7 @@ import User from '../models/User.js';
 
       //link thought to user
       await User.findOneAndUpdate(
-        { username: req.body.username }, 
+        { _id: req.body.userId }, 
         { $push: { thoughts: newThought._id } },
         { new: true }
       );
@@ -83,7 +83,7 @@ import User from '../models/User.js';
         //remove thought from user
         await User.findOneAndUpdate(
           { username: deletedThought.username },
-          { $pull: { thoughts: req.params.thoughtID } },
+          { $pull: { thoughts: req.params.thoughtId } },
           { new: true }
         );
       }

@@ -1,21 +1,32 @@
 import { Router } from 'express';
-const router = Router();
-import { getVideos, getSingleVideo, createVideo, updateVideo, deleteVideo, addVideoResponse, removeVideoResponse } from '../../controllers/videoController.js';
+import { 
+  getThoughts, 
+  getSingleThought, 
+  createThought, 
+  updateThought, 
+  deleteThought, 
+  addReaction, 
+  removeReaction } from '../../controllers/thoughtController.js';
+  
+  const router = Router();
 
-// /api/videos
-router.route('/').get(getVideos).post(createVideo);
+  // /api/thoughts
+router.route('/')
+.get(getThoughts) // Get all thoughts
+.post(createThought); // Create a new thought
 
-// /api/videos/:videoId
-router
-  .route('/:videoId')
-  .get(getSingleVideo)
-  .put(updateVideo)
-  .delete(deleteVideo);
+// /api/thought/:thoughtId
+router.route('/:thoughtId')
+  .get(getSingleThought)// get a single thought by its _id
+  .put(updateThought) // update a thought
+  .delete(deleteThought); // delete a thought
 
-// /api/videos/:videoId/responses
-router.route('/:videoId/responses').post(addVideoResponse);
+// /api/:thoughtID/reactions
+router.route('/:thoughtId/reactions')
+.post(addReaction);  // add a reaction to a thought
 
-// /api/videos/:videoId/responses/:responseId
-router.route('/:videoId/responses/:responseId').delete(removeVideoResponse);
+// /api/:thoughtID/reactions/:reactionId
+router.route('/:thoughtId/reactions/:reactionId')
+.delete(removeReaction); // remove a reaction from a thought
 
 export default router;

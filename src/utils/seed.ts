@@ -1,43 +1,41 @@
-import connection from '../config/connection.js';
-import { User, Video } from '../models/index.js';
-import { getRandomName, getRandomVideos } from './data.js';
+import '../config/connection.js';
+import models from '../models/index.js';
+import { users, thoughts } from './data.js';
 
-connection.on('error', (err) => err);
 
-connection.once('open', async () => {
-  console.log('connected');
-  // Delete the collections if they exist
-  let videoCheck = await connection.db?.listCollections({ name: 'videos' }).toArray();
-  if (videoCheck?.length) {
-    await connection.dropCollection('videos');
+const { User, Thought } = models; // Destructure User and Thought
+
+const seedDatabase = async () => {
+  try {
+    console.log('📡 Connected to MongoDB');
+
+    // Clear existing data
+    await User.deleteMany({});
+    await Thought.deleteMany({});
+    console.log('🗑 Cleared old data');
+
+    // Insert users first
+    const createdUsers = await User.insertMany(users);
+    console.log('✅ Users seeded');
+
+    // Insert thoughts, linking them to users
+    for (let thought of thoughts) {
+      const user = createdUsers.find((u) => u.username === thought.username);
+      if (user) {
+        const newThought = await Thought.create({ ...thought, userId: user._id });
+        await User.findByIdAndUpdate(user._id, { $push: { thoughts: newThought._id } });
+      }
+    }
+
+    console.log('✅ Thoughts seeded');
+    console.log('🌱 Database seeding complete!');
+
+    process.exit(0); // Exit the script
+  } catch (err) {
+    console.error('❌ Error seeding database:', err);
+    process.exit(1);
   }
+};
 
-  let userCheck = await connection.db?.listCollections({ name: 'users' }).toArray();
-  if (userCheck?.length) {
-    await connection.dropCollection('users');
-  }
-
-  const users = [];
-  const videos = getRandomVideos(10);
-
-  for (let i = 0; i < 20; i++) {
-    const fullName = getRandomName();
-    const first = fullName.split(' ')[0];
-    const last = fullName.split(' ')[1];
-
-    users.push({
-      first,
-      last,
-      age: Math.floor(Math.random() * (99 - 18 + 1) + 18),
-    });
-  }
-
-  await User.insertMany(users);
-  await Video.insertMany(videos);
-
-  // loop through the saved videos, for each video we need to generate a video response and insert the video responses
-  console.table(users);
-  console.table(videos);
-  console.info('Seeding complete! 🌱');
-  process.exit(0);
-});
+// Run the seed function
+seedDatabase();
