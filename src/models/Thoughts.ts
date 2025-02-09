@@ -6,7 +6,7 @@ interface IThought extends Document {
   thoughtText: string;
   createdAt: Date;
   username: string;
-  reactions: Types.DocumentArray<typeof reactionSchema>; 
+  reactions: Types.Array<typeof reactionSchema>; 
 }
 
 const thoughtsSchema = new Schema<IThought>(

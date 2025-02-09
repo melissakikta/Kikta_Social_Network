@@ -3,8 +3,8 @@ import { Schema, Document, model, Types } from 'mongoose';
 interface IUser extends Document {
   username: string;
   email: string;
-  thoughts: Types.ObjectID [];
-  friends: Types.ObjectID[]; // this isn't correct
+  thoughts: Types.ObjectId [];
+  friends: Types.ObjectId[]; // this isn't correct
  }
 
 // Schema to create User model
