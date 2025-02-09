@@ -1,5 +1,7 @@
-import { User, Thought, } from '../models/index.js';
+import models from '../models/index.js';
 import { Request, Response } from 'express';
+
+const { User, Thought } = models; // Destructure User and Thought
 
   export const getUsers = async(_req: Request, res: Response) => {
     try {
