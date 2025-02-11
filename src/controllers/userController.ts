@@ -1,4 +1,5 @@
 import models from '../models/index.js';
+import { Types } from 'mongoose';
 import { Request, Response } from 'express';
 
 const { User, Thought } = models; // Destructure User and Thought
@@ -79,6 +80,11 @@ const { User, Thought } = models; // Destructure User and Thought
   // Add a friend to a user
   export const addFriend = async (req: Request, res: Response) => {
     try {
+
+      if (!Types.ObjectId.isValid(req.params.friendId) || !Types.ObjectId.isValid(req.params.userId)) {
+        return res.status(400).json({ message: 'Invalid ID' });
+      }
+
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
         { $addToSet: { friends: req.params.friendId } },
