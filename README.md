@@ -19,39 +19,39 @@ A video tutorial can be found [here](link here)
 
 Here are screenshots of the code tested in Insomnia 
 
-<u><strong>Thoughts</strong></u>
-
-![Navigation](./assets/images/search.png)
-
-
-
 <u><strong>Users</strong></u>
 
-![Portfolio](./assets/images/saved.png)
+![Navigation](./assets/images/users.png)
+
+
+
+<u><strong>Thoughts</strong></u>
+
+![Portfolio](./assets/images/thoughts.png)
 
 
 
 <u><strong>Single User</strong></u>
 
-![Portfolio](./assets/images/saved.png)
+![Portfolio](./assets/images/single_user.png)
 
 
 
-<u><strong>Post</strong></u>
+<u><strong>Create User</strong></u>
 
-![Portfolio](./assets/images/saved.png)
-
-
-
-<u><strong>Put</strong></u>
-
-![Portfolio](./assets/images/saved.png)
+![Portfolio](./assets/images/create_user.png)
 
 
 
-<u><strong>Delete</strong></u>
+<u><strong>Update User</strong></u>
 
-![Portfolio](./assets/images/saved.png)
+![Portfolio](./assets/images/update_user.png)
+
+
+
+<u><strong>Delete User</strong></u>
+
+![Portfolio](./assets/images/delete_user.png)
 
 
 
