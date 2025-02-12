@@ -5,7 +5,7 @@ An API built from scratch for a social network web application where users can s
 ## 📚 Description
 In this application, Express.js, a MongoDB database, and Mongoose ODM are used to navigates the data created and stored in a social network. 
 
-A video tutorial can be found [here](link here) 
+A video tutorial can be found [here](https://drive.google.com/file/d/1A_XczHEQrfvne-R8MWqjfIUgIhK9obLz/view?usp=sharing) 
 
 ## 🚀 Table of Contents
   * [Usage](#📝-Usage)
